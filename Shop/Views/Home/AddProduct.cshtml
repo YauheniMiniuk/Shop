@@ -1,0 +1,17 @@
+﻿@model Product 
+<form method="post" asp-action="AddProduct">
+    <div asp-validation-summary="All"></div>
+    <p>
+        <label>Name</label><br />
+        <input asp-for="Name" type="text" />
+    </p>
+    <p>
+        <label>Category</label><br />
+        <input asp-for="Category" type="text" />
+    </p>
+    <p>
+        <label>Price</label><br />
+        <input asp-for="Price" type="text" />
+    </p>
+    <input type="submit" />
+</form>

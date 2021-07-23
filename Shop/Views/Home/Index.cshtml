@@ -1,0 +1,29 @@
+﻿@{ 
+    Layout = "_Layout";
+}
+@model IEnumerable<Product>
+<div>
+    <h1>Магазин</h1>
+    <a asp-action="AddProduct">Добавить продукт</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+            <tr>
+                <td>@p.Id</td>
+                <td>@p.Name</td>
+                <td>@p.Category</td>
+                <td>@p.Price</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
