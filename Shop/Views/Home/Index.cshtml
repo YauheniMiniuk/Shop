@@ -1,29 +1,19 @@
 ﻿@{ 
     Layout = "_Layout";
+    ViewData["Title"] = "Shop";
 }
-@model IEnumerable<Product>
-<div>
-    <h1>Магазин</h1>
-    <a asp-action="AddProduct">Добавить продукт</a>
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var p in Model)
-            {
-            <tr>
-                <td>@p.Id</td>
-                <td>@p.Name</td>
-                <td>@p.Category</td>
-                <td>@p.Price</td>
-            </tr>
-            }
-        </tbody>
-    </table>
+@model ProductsListViewModel
+@foreach(var p in Model.Products){
+    <div class="card m-1 p-1">
+        <div class="bg-faded p-1">
+            <h3>@p.Name</h3>
+            @p.Category
+            <h4>@p.Price</h4>
+        </div>
+        
+    </div>
+}
+<div page-model="@Model.PagingInfo" page-action="Index" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-secondary"
+     page-class-selected="btn-primary" class="btn-group pull-right m-1">
 </div>

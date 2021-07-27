@@ -4,21 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Shop.Models;
+using Shop.Models.ViewModels;
 
 namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
         IProductRepository productRepository;
+        public int PageSize = 4;
         public HomeController(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
         }
-        public IActionResult Index()
-        {
-            ViewData["Title"] = "MyShop";
-            return View(productRepository.Products);
-        }
+        public ViewResult Index(int productPage = 1) =>
+            View(new ProductsListViewModel
+            {
+                Products = productRepository.Products
+                .OrderBy(p => p.Id)
+                .Skip((productPage - 1) * PageSize)
+                .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = productPage,
+                    ItemPerPage = PageSize,
+                    TotalItems = productRepository.Products.Count()
+                }
+            });
+                
         [HttpGet]
         public IActionResult AddProduct()
         {

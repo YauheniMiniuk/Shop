@@ -1,0 +1,11 @@
+﻿@model Product
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="text-center">
+    <h1>@Model.Name</h1>
+    <h5>@Model.Category</h5>
+    <h3>@Model.Price</h3>
+</div>
