@@ -29,6 +29,7 @@ namespace Shop
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProductRepository, EFProductRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +45,36 @@ namespace Shop
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
+                    name: null,
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                ///////
+                //endpoints.MapControllerRoute(
+                //    name: null,
+                //    pattern: "{category}/Page{productPage:int}",
+                //    defaults: new { controller = "Home", action = "Index" }
+                //    );
+                //endpoints.MapControllerRoute(
+                //    name: null,
+                //    pattern: "Page{productPage:int}",
+                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
+                //    );
+                //endpoints.MapControllerRoute(
+                //    name: null,
+                //    pattern: "{category}",
+                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
+                //    );
+                //endpoints.MapControllerRoute(
+                //    name: null,
+                //    pattern: "",
+                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
+                //    );
             });
+            //app.UseMvc(routes =>
+            //routes.MapRoute(
+            //    name: null,
+            //    template: "{category}/{Page{productPage:int}",
+            //    defaults: new { controller = "Home", action = "Index" }));
+
         }
     }
 }

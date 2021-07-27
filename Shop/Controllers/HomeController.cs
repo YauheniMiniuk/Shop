@@ -16,10 +16,11 @@ namespace Shop.Controllers
         {
             this.productRepository = productRepository;
         }
-        public ViewResult Index(int productPage = 1) =>
+        public ViewResult Index(string category, int productPage = 1) =>
             View(new ProductsListViewModel
             {
                 Products = productRepository.Products
+                .Where(p=> category == null || p.Category == category)
                 .OrderBy(p => p.Name)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
@@ -27,8 +28,11 @@ namespace Shop.Controllers
                 {
                     CurrentPage = productPage,
                     ItemPerPage = PageSize,
-                    TotalItems = productRepository.Products.Count()
-                }
+                    TotalItems = category == null ?
+                        productRepository.Products.Count() :
+                        productRepository.Products.Where(p=>p.Category == category).Count()
+                },
+                CurrentCategory = category
             });
                 
         [HttpGet]

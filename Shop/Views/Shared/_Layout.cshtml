@@ -21,9 +21,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Shop" asp-action="Index">Chats</a>
-                        </li>
                     </ul>
                 </div>
 
@@ -41,9 +38,14 @@
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        <div class="row m-1 p-1">
+            <div id="categories" class="col-3">
+                @await Component.InvokeAsync("NavigationMenu") 
+            </div>
+            <div class="col-9">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
     <footer class="border-top footer text-muted">
