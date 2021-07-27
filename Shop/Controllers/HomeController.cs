@@ -20,7 +20,7 @@ namespace Shop.Controllers
             View(new ProductsListViewModel
             {
                 Products = productRepository.Products
-                .OrderBy(p => p.Id)
+                .OrderBy(p => p.Name)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
                 PagingInfo = new PagingInfo

@@ -18,5 +18,6 @@ namespace Shop.Models
 
         [Required(ErrorMessage = "Еблан, забыл написать цену")]
         public decimal? Price { get; set; }
+        public string Description { get; set; }
     }
 }
