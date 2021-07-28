@@ -26,6 +26,7 @@ namespace Shop
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddMvc(p => p.EnableEndpointRouting = false);
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IProductRepository, EFProductRepository>();
@@ -69,12 +70,6 @@ namespace Shop
                 //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
                 //    );
             });
-            //app.UseMvc(routes =>
-            //routes.MapRoute(
-            //    name: null,
-            //    template: "{category}/{Page{productPage:int}",
-            //    defaults: new { controller = "Home", action = "Index" }));
-
         }
     }
 }

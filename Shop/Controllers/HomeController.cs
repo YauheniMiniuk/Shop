@@ -16,6 +16,9 @@ namespace Shop.Controllers
         {
             this.productRepository = productRepository;
         }
+        [Route("")]
+        [Route("{category}")]
+        [Route("{category}/Page{productPage}")]
         public ViewResult Index(string category, int productPage = 1) =>
             View(new ProductsListViewModel
             {
