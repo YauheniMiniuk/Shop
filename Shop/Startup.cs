@@ -26,11 +26,11 @@ namespace Shop
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddMvc(p => p.EnableEndpointRouting = false);
+            services.AddMemoryCache();
+            services.AddSession();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IProductRepository, EFProductRepository>();
-            
+            services.AddTransient<IProductRepository, EFProductRepository>(); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,32 +43,27 @@ namespace Shop
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseStaticFiles();
-            app.UseEndpoints(endpoints =>
+            app.UseSession();
+            app.UseEndpoints(config =>
             {
-                endpoints.MapControllerRoute(
+                config.MapControllerRoute(
                     name: null,
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                ///////
-                //endpoints.MapControllerRoute(
+                config.MapControllerRoute(
+                    name: null,
+                    pattern: "{category}/Page{productPage:int}");
+                config.MapControllerRoute(
+                    name: null,
+                    pattern: "Page{productPage:int}");
+                config.MapControllerRoute(
+                    name: null,
+                    pattern: "{category}");
+                config.MapControllerRoute(
+                    name: null,
+                    pattern: "");
+                //config.MapControllerRoute(
                 //    name: null,
-                //    pattern: "{category}/Page{productPage:int}",
-                //    defaults: new { controller = "Home", action = "Index" }
-                //    );
-                //endpoints.MapControllerRoute(
-                //    name: null,
-                //    pattern: "Page{productPage:int}",
-                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
-                //    );
-                //endpoints.MapControllerRoute(
-                //    name: null,
-                //    pattern: "{category}",
-                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
-                //    );
-                //endpoints.MapControllerRoute(
-                //    name: null,
-                //    pattern: "",
-                //    defaults: new { controller = "Home", action = "Index", productPage = 1 }
-                //    );
+                //    pattern: "{controller=Cart}#/{action=Index}/{ReturnUrl}");
             });
         }
     }

@@ -10,14 +10,14 @@ namespace Shop.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Еблан, забыл написать имя")]
+        [Required(ErrorMessage = "Укажите имя")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Еблан, забыл написать категорию")]
+        [Required(ErrorMessage = "Укажите категорию")]
         public string Category { get; set; }
 
-        [Required(ErrorMessage = "Еблан, забыл написать цену")]
-        public decimal? Price { get; set; }
+        [Required(ErrorMessage = "Укажите цену")]
+        public decimal Price { get; set; }
         public string Description { get; set; }
     }
 }
