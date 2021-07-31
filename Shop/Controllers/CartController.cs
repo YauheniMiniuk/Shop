@@ -14,15 +14,17 @@ namespace Shop.Controllers
     public class CartController : Controller
     {
         private IProductRepository repository;
-        public CartController(IProductRepository repo)
+        public Cart cart;
+        public CartController(IProductRepository repo, Cart cartService)
         {
             repository = repo;
+            cart = cartService;
         }
         public ViewResult Index(string returnUrl)
         {
             return View(new CartIndexViewModel
             {
-                Cart = GetCart(),
+                Cart = cart,
                 ReturnUrl = returnUrl
             });
         }
@@ -31,9 +33,7 @@ namespace Shop.Controllers
             Product product = repository.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
             {
-                Cart cart = GetCart();
                 cart.AddItem(product, 1);
-                SaveCart(cart);
             }
             return RedirectToAction("Index", "Cart", new { returnUrl });
         }
@@ -42,9 +42,7 @@ namespace Shop.Controllers
             Product product = repository.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)
             {
-                Cart cart = GetCart();
                 cart.RemoveLine(product);
-                SaveCart(cart);
             }
             return RedirectToAction("Index", new { returnUrl });
         }

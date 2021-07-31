@@ -26,11 +26,13 @@ namespace Shop
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddMemoryCache();
-            services.AddSession();
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IProductRepository, EFProductRepository>(); 
+            services.AddTransient<IProductRepository, EFProductRepository>();
+            services.AddScoped(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
