@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Shop.Models;
 using Shop.Models.ViewModels;
+using System.Linq;
 
 namespace Shop.Controllers
 {
@@ -23,7 +20,7 @@ namespace Shop.Controllers
             View(new ProductsListViewModel
             {
                 Products = productRepository.Products
-                .Where(p=> category == null || p.Category == category)
+                .Where(p => category == null || p.Category == category)
                 .OrderBy(p => p.Name)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
@@ -33,11 +30,11 @@ namespace Shop.Controllers
                     ItemPerPage = PageSize,
                     TotalItems = category == null ?
                         productRepository.Products.Count() :
-                        productRepository.Products.Where(p=>p.Category == category).Count()
+                        productRepository.Products.Where(p => p.Category == category).Count()
                 },
                 CurrentCategory = category
             });
-                
+
         [HttpGet]
         public IActionResult AddProduct()
         {

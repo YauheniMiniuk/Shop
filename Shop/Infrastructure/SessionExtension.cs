@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
 
 namespace Shop.Infrastructure
 {
@@ -13,7 +9,7 @@ namespace Shop.Infrastructure
         {
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
-        public static T GetJson<T> (this ISession session, string key)
+        public static T GetJson<T>(this ISession session, string key)
         {
             var sessionData = session.GetString(key);
             return sessionData == null

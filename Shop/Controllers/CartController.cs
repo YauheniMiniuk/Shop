@@ -1,13 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Shop.Infrastructure;
 using Shop.Models;
 using Shop.Models.ViewModels;
-using Shop.Infrastructure;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
+using System.Linq;
 
 namespace Shop.Controllers
 {
@@ -28,7 +24,7 @@ namespace Shop.Controllers
                 ReturnUrl = returnUrl
             });
         }
-        public RedirectToActionResult AddToCart (int Id, string returnUrl)
+        public RedirectToActionResult AddToCart(int Id, string returnUrl)
         {
             Product product = repository.Products.FirstOrDefault(p => p.Id == Id);
             if (product != null)

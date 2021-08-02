@@ -1,8 +1,60 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="font-awesome\**" />
+    <Content Remove="font-awesome\**" />
+    <EmbeddedResource Remove="font-awesome\**" />
+    <None Remove="font-awesome\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210727140056_Product Description.cs" />
+    <Compile Remove="Migrations\20210727140056_Product Description.Designer.cs" />
+    <Compile Remove="Migrations\20210727140639_2.cs" />
+    <Compile Remove="Migrations\20210727140639_2.Designer.cs" />
+    <Compile Remove="Migrations\20210802094030_Orders.cs" />
+    <Compile Remove="Migrations\20210802094030_Orders.Designer.cs" />
+    <Compile Remove="Migrations\20210802094435_Orders.cs" />
+    <Compile Remove="Migrations\20210802094435_Orders.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\fontawesome\css\font-awesome.css.map" />
+    <None Include="wwwroot\lib\fontawesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\lib\fontawesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\lib\fontawesome\less\animated.less" />
+    <None Include="wwwroot\lib\fontawesome\less\bordered-pulled.less" />
+    <None Include="wwwroot\lib\fontawesome\less\core.less" />
+    <None Include="wwwroot\lib\fontawesome\less\fixed-width.less" />
+    <None Include="wwwroot\lib\fontawesome\less\font-awesome.less" />
+    <None Include="wwwroot\lib\fontawesome\less\icons.less" />
+    <None Include="wwwroot\lib\fontawesome\less\larger.less" />
+    <None Include="wwwroot\lib\fontawesome\less\list.less" />
+    <None Include="wwwroot\lib\fontawesome\less\mixins.less" />
+    <None Include="wwwroot\lib\fontawesome\less\path.less" />
+    <None Include="wwwroot\lib\fontawesome\less\rotated-flipped.less" />
+    <None Include="wwwroot\lib\fontawesome\less\screen-reader.less" />
+    <None Include="wwwroot\lib\fontawesome\less\stacked.less" />
+    <None Include="wwwroot\lib\fontawesome\less\variables.less" />
+    <None Include="wwwroot\lib\fontawesome\scss\font-awesome.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_animated.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_core.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_fixed-width.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_icons.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_larger.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_list.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_mixins.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_path.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_screen-reader.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_stacked.scss" />
+    <None Include="wwwroot\lib\fontawesome\scss\_variables.scss" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />

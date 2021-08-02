@@ -1,0 +1,8 @@
+{
+  "name": "asp.net",
+  "private": true
+  "dependencies": {
+    "fontawesome": "v4.7.0",
+    "bootstrap": "v5.0.2"
+  }
+}

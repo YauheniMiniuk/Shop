@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
-using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Shop.Components
 {
