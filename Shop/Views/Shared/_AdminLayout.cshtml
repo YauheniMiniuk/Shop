@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" asp-href-include="~/lib/bootstrap/dist/css/*.min.css" />
+    <title>(Admin)@ViewData["Title"] - Shop</title>
+    <style>
+        .input-validation-error{border-color:red; background: #fee;}
+    </style>
+</head>
+<body class="m-1 p-1">
+    <div class="bg-info p-2">
+        <h4>@ViewData["Title"]</h4>
+    </div>
+    @if (TempData["message"] != null)
+    {
+        <div class="alert alert-success">@TempData["message"]</div>
+    }
+    @RenderBody()
+</body>
+</html>

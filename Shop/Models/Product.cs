@@ -13,6 +13,7 @@ namespace Shop.Models
         public string Category { get; set; }
 
         [Required(ErrorMessage = "Укажите цену")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Укажите положительное значение для цены")]
         public decimal Price { get; set; }
         public string Description { get; set; }
     }

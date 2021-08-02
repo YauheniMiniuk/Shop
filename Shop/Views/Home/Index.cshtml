@@ -3,9 +3,7 @@
     ViewData["Title"] = "Shop";
 }
 @model ProductsListViewModel
-<div class="text-center">
-    <a asp-controller="Home" asp-action="AddProduct">Add Product</a>
-</div>
+
 @foreach(var p in Model.Products){
     @Html.Partial("ProductSummary", p)
 }

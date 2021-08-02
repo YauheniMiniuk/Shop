@@ -6,6 +6,6 @@ namespace Shop.Models
     {
         IEnumerable<Product> Products { get; }
         Product GetProductById(int id);
-        void AddProduct(Product product);
+        void SaveProduct(Product product);
     }
 }

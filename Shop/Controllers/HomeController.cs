@@ -34,25 +34,5 @@ namespace Shop.Controllers
                 },
                 CurrentCategory = category
             });
-
-        [HttpGet]
-        public IActionResult AddProduct()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult AddProduct(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                productRepository.AddProduct(product);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
-
-        }
     }
 }

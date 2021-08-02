@@ -13,10 +13,24 @@ namespace Shop.Models
         // Return all products
         public IEnumerable<Product> Products => context.Products;
         public Product GetProductById(int id) => context.Products.Where(p => p.Id == id).FirstOrDefault();
-        public void AddProduct(Product product)
+        public void SaveProduct(Product product)
         {
-            context.Products.Add(product);
-            context.SaveChangesAsync();
+            if (product.Id == 0)
+            {
+                context.Products.Add(product);
+            }
+            else
+            {
+                Product dbEntry = context.Products.FirstOrDefault(p => p.Id == product.Id);
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = product.Name;
+                    dbEntry.Category = product.Category;
+                    dbEntry.Price = product.Price;
+                    dbEntry.Description = product.Description;
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

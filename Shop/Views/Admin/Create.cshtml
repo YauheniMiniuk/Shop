@@ -1,5 +1,10 @@
 ﻿@model Product 
-<form method="post" asp-action="AddProduct" class="text-center">
+
+@{ 
+    ViewData["Title"] = "Add Product";
+    Layout = "_AdminLayout";
+}
+<form method="post" asp-action="Create" class="text-center">
     <div asp-validation-summary="All"></div>
     <p>
         <label>Name</label><br />
