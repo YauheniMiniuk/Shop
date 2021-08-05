@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Models
 {
@@ -9,13 +10,15 @@ namespace Shop.Models
         public virtual void AddItem(Product product, int quantity)
         {
             CartLine line = lineCollection
-                .Where(p => p.Product.Id == product.Id)
+                .Where(p => p.ProductId == product.Id)
                 .FirstOrDefault();
             if (line == null)
             {
                 lineCollection.Add(new CartLine
                 {
-                    Product = product,
+                    ProductId = product.Id,
+                    ProductName = product.Name,
+                    ProductPrice = product.Price,
                     Quantity = quantity
                 });
             }
@@ -23,16 +26,21 @@ namespace Shop.Models
                 line.Quantity += quantity;
         }
         public virtual void RemoveLine(Product product) =>
-            lineCollection.RemoveAll(l => l.Product.Id == product.Id);
+            lineCollection.RemoveAll(l => l.ProductId == product.Id);
         public virtual decimal ComputeTotalValue() =>
-            lineCollection.Sum(e => e.Product.Price * e.Quantity);
+            lineCollection.Sum(e => e.ProductPrice * e.Quantity);
         public virtual void Clear() => lineCollection.Clear();
         public virtual IEnumerable<CartLine> Lines => lineCollection;
     }
     public class CartLine
     {
         public int Id { get; set; }
-        public Product Product { get; set; }
+        //public Product Product { get; set; }
+        //
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public decimal ProductPrice { get; set; }
+        //
         public int Quantity { get; set; }
     }
 }

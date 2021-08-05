@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private IProductRepository repository;
@@ -12,23 +14,13 @@ namespace Shop.Controllers
             repository = repo;
         }
         public ViewResult Index() => View(repository.Products);
-        public ViewResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult SeedDatabase()
         {
-            if (ModelState.IsValid)
-            {
-                repository.SaveProduct(product);
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View();
-            }
+            SeedData.EnsurePopulated(HttpContext.RequestServices);
+            return RedirectToAction(nameof(Index));
         }
+        public ViewResult Create() => View("Edit", new Product());
         public ViewResult Edit(int productId) => View(repository.Products.FirstOrDefault(p => p.Id == productId));
         [HttpPost]
         public IActionResult Edit(Product product)
@@ -43,6 +35,16 @@ namespace Shop.Controllers
             {
                 return View(product);
             }
+        }
+        [HttpPost]
+        public IActionResult Delete(int Id)
+        {
+            Product deletedProduct = repository.DeleteProduct(Id);
+            if (deletedProduct != null)
+            {
+                TempData["message"] = $"Продукт {deletedProduct.Name} был удален";
+            }
+            return RedirectToAction("Index");
         }
     }
 }

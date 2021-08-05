@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>d774299e-f6c4-4a70-9ea3-c7fb723cfcf5</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,17 +10,6 @@
     <Content Remove="font-awesome\**" />
     <EmbeddedResource Remove="font-awesome\**" />
     <None Remove="font-awesome\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20210727140056_Product Description.cs" />
-    <Compile Remove="Migrations\20210727140056_Product Description.Designer.cs" />
-    <Compile Remove="Migrations\20210727140639_2.cs" />
-    <Compile Remove="Migrations\20210727140639_2.Designer.cs" />
-    <Compile Remove="Migrations\20210802094030_Orders.cs" />
-    <Compile Remove="Migrations\20210802094030_Orders.Designer.cs" />
-    <Compile Remove="Migrations\20210802094435_Orders.cs" />
-    <Compile Remove="Migrations\20210802094435_Orders.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,13 +47,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.17" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.6" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1production_1json__JsonSchema="https://json.schemastore.org/appsettings.json" /></VisualStudio></ProjectExtensions>
 
 </Project>

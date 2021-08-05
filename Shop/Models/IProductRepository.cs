@@ -7,5 +7,6 @@ namespace Shop.Models
         IEnumerable<Product> Products { get; }
         Product GetProductById(int id);
         void SaveProduct(Product product);
+        Product DeleteProduct(int productId);
     }
 }

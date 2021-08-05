@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Models;
+using Microsoft.AspNetCore.Identity;
+using Pomelo.EntityFrameworkCore.MySql;
 
 namespace Shop
 {
@@ -23,11 +25,16 @@ namespace Shop
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            options.UseMySql(Configuration.GetConnectionString("ShopProducts")));
             services.AddTransient<IProductRepository, EFProductRepository>();
             services.AddScoped(sp => SessionCart.GetCart(sp));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IOrderRepository, EFOrderRepository>();
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseMySql(Configuration.GetConnectionString("ShopIdentity")));
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppIdentityDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddMemoryCache();
             services.AddSession();
@@ -39,11 +46,18 @@ namespace Shop
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
             }
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(config =>
             {
                 config.MapControllerRoute(
@@ -61,10 +75,8 @@ namespace Shop
                 config.MapControllerRoute(
                     name: null,
                     pattern: "");
-                //config.MapControllerRoute(
-                //    name: null,
-                //    pattern: "{controller=Cart}#/{action=Index}/{ReturnUrl}");
             });
+            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
