@@ -26,8 +26,10 @@ namespace Shop.Models
                 {
                     dbEntry.Name = product.Name;
                     dbEntry.Category = product.Category;
+                    dbEntry.Subcategory = product.Subcategory;
                     dbEntry.Price = product.Price;
                     dbEntry.Description = product.Description;
+                    dbEntry.isAvailable = product.isAvailable;
                 }
             }
             context.SaveChanges();

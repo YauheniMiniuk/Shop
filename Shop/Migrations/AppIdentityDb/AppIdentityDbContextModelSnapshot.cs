@@ -20,7 +20,8 @@ namespace Shop.Migrations.AppIdentityDb
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4")
+                        .HasMaxLength(127);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()

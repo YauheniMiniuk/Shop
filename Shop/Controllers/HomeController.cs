@@ -13,14 +13,14 @@ namespace Shop.Controllers
         {
             this.productRepository = productRepository;
         }
+        [Route("{category}/{subcategory}/Page{productPage:int}")]
+        [Route("{category}/{subcategory?}")]
         [Route("")]
-        [Route("{category}")]
-        [Route("{category}/Page{productPage}")]
-        public ViewResult Index(string category, int productPage = 1) =>
+        public ViewResult Index(string category, string subcategory, int productPage = 1) =>
             View(new ProductsListViewModel
             {
                 Products = productRepository.Products
-                .Where(p => category == null || p.Category == category)
+                .Where(p => category == null || (p.Category == category && p.Subcategory == subcategory) || (p.Category == category && subcategory == null))
                 .OrderBy(p => p.Name)
                 .Skip((productPage - 1) * PageSize)
                 .Take(PageSize),
@@ -30,9 +30,12 @@ namespace Shop.Controllers
                     ItemPerPage = PageSize,
                     TotalItems = category == null ?
                         productRepository.Products.Count() :
-                        productRepository.Products.Where(p => p.Category == category).Count()
+                        subcategory == null ?
+                            productRepository.Products.Where(p => p.Category == category).Count() :
+                            productRepository.Products.Where (p => p.Category == category && p.Subcategory == subcategory).Count()
                 },
-                CurrentCategory = category
+                CurrentCategory = category,
+                CurrentSubcategory = subcategory
             });
     }
 }

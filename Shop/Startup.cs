@@ -65,6 +65,12 @@ namespace Shop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 config.MapControllerRoute(
                     name: null,
+                    pattern: "{category}/{subcategory}");
+                config.MapControllerRoute(
+                    name: null,
+                    pattern: "{category}/{subcategory}/Page{productPage:int}");
+                config.MapControllerRoute(
+                    name: null,
                     pattern: "{category}/Page{productPage:int}");
                 config.MapControllerRoute(
                     name: null,
@@ -75,6 +81,7 @@ namespace Shop
                 config.MapControllerRoute(
                     name: null,
                     pattern: "");
+
             });
             //IdentitySeedData.EnsurePopulated(app);
         }

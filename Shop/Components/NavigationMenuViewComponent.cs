@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using Shop.Models;
 using System.Linq;
+using Shop.Models.ViewModels;
 
 namespace Shop.Components
 {
@@ -14,10 +16,19 @@ namespace Shop.Components
         public IViewComponentResult Invoke()
         {
             ViewBag.SelectedCategory = RouteData?.Values["category"];
-            return View(repository.Products
+            ViewBag.SelectedSubcategory = RouteData?.Values["subcategory"];
+            return View(new CategoriesSubcategoriesViewModel
+            {
+                Categories = repository.Products
                 .Select(x => x.Category)
                 .Distinct()
-                .OrderBy(x => x));
+                .OrderBy(x => x),
+                Subcategories = repository.Products
+                .Where(x=>x.Category == ViewBag.SelectedCategory)
+                .Select(x => x.Subcategory)
+                .Distinct()
+                .OrderBy(x => x)
+            });
         }
     }
 }
