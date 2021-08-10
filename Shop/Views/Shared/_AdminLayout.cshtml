@@ -16,7 +16,13 @@
         <div class="col">
             <h4>@ViewData["Title"]</h4>
         </div>
-        <div class="col-2">
+        <div class="col-1">
+            <a class="btn btn-sm btn-primary" asp-action="Index" asp-controller="Admin">Products</a>
+        </div>
+        <div class="col-1">
+            <a class="btn btn-sm btn-primary" asp-action="List" asp-controller="Order">Orders</a>
+        </div>
+        <div class="col-1">
             <a class="btn btn-sm btn-primary" asp-action="Logout" asp-controller="Account">Log Out</a>
         </div>
     </div>

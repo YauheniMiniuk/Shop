@@ -17,7 +17,7 @@ namespace Shop.Controllers
         [HttpPost]
         public IActionResult SeedDatabase()
         {
-            SeedData.EnsurePopulated(HttpContext.RequestServices);
+            //SeedData.EnsurePopulated(HttpContext.RequestServices);
             return RedirectToAction(nameof(Index));
         }
         public ViewResult Create() => View("Edit", new Product());

@@ -37,7 +37,13 @@ namespace Shop.Controllers
                     await signInManager.SignOutAsync();
                     if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        return Redirect(loginModel?.ReturnUrl ?? "Admin/Index");
+                        //return Redirect(loginModel?.ReturnUrl ?? "Admin/Index");
+                        if (loginModel.ReturnUrl != null)
+                        {
+                            return Redirect(loginModel.ReturnUrl);
+                        }
+                        else
+                            return RedirectToAction("Index", "Admin");
                     }
                 }
             }

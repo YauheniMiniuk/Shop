@@ -60,30 +60,8 @@ namespace Shop
             app.UseAuthorization();
             app.UseEndpoints(config =>
             {
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}/{subcategory}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}/{subcategory}/Page{productPage:int}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}/Page{productPage:int}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "Page{productPage:int}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "{category}");
-                config.MapControllerRoute(
-                    name: null,
-                    pattern: "");
-
+                config.MapDefaultControllerRoute();
             });
-            //IdentitySeedData.EnsurePopulated(app);
         }
     }
 }
