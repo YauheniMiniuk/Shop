@@ -1,5 +1,5 @@
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
@@ -10,7 +10,7 @@
 else
 {
     <div class="btn-group mr-2">
-        <a class="btn btn-secondary" asp-controller="Admin" asp-action="Index">Registration</a>
+        <a class="btn btn-secondary" asp-controller="Account" asp-action="Registration">Registration</a>
         <a class="btn btn-secondary" asp-controller="Account" asp-action="Login">Sign in</a>
     </div>
 }

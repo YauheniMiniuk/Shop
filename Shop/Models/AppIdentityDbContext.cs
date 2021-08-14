@@ -12,5 +12,6 @@ namespace Shop.Models
     {
         public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options)
             : base(options) { }
+        public DbSet<User> Users { get; set; }
     }
 }

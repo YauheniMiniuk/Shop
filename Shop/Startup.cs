@@ -32,9 +32,12 @@ namespace Shop
             services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseMySql(Configuration.GetConnectionString("ShopIdentity")));
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<AppIdentityDbContext>()
+            //    .AddDefaultTokenProviders();
 
             services.AddMemoryCache();
             services.AddSession();

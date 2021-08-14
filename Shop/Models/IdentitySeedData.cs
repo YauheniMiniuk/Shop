@@ -7,15 +7,16 @@ namespace Shop.Models
 {
     public static class IdentitySeedData
     {
-        private const string adminUser = "Admin";
+        private const string adminUser = "Administrator";
         private const string adminPassword = "Secret123$";
-        public static async Task EnsurePopulated (UserManager<IdentityUser> userManager)
+        public static async Task EnsurePopulated (UserManager<User> userManager)
         {
-            IdentityUser user = await userManager.FindByIdAsync(adminUser);
+            User user = await userManager.FindByIdAsync(adminUser);
             if (user == null)
             {
-                user = new IdentityUser("Admin");
+                user = new User("Administrator");
                 await userManager.CreateAsync(user, adminPassword);
+                await userManager.AddToRoleAsync(user, "Admin");
             }
         }
     }

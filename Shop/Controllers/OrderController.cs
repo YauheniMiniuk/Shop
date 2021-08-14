@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Shop.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Shop.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class OrderController : Controller
     {
         private IOrderRepository repository;

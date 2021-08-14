@@ -11,13 +11,13 @@ namespace Shop.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<IdentityUser> userManager;
-        private SignInManager<IdentityUser> signInManager;
-        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr)
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+        public AccountController(UserManager<User> userMgr, SignInManager<User> signInMgr)
         {
             userManager = userMgr;
             signInManager = signInMgr;
-            IdentitySeedData.EnsurePopulated(userMgr).Wait();
+            //IdentitySeedData.EnsurePopulated(userMgr).Wait();
         }
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
@@ -35,7 +35,7 @@ namespace Shop.Controllers
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
-                    if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
+                    if ((await signInManager.PasswordSignInAsync((User)user, loginModel.Password, false, false)).Succeeded)
                     {
                         //return Redirect(loginModel?.ReturnUrl ?? "Admin/Index");
                         if (loginModel.ReturnUrl != null)
@@ -44,7 +44,7 @@ namespace Shop.Controllers
                         }
                         else
                         {
-                            if (await userManager.IsInRoleAsync(user, "Admin"))
+                            if (await userManager.IsInRoleAsync((User)user, "Admin"))
                             {
                                 return RedirectToAction("Index", "Admin");
                             }
@@ -55,6 +55,33 @@ namespace Shop.Controllers
             }
             ModelState.AddModelError("", "Неправильное имя или пароль");
             return View(loginModel);
+        }
+        [AllowAnonymous]
+        public ViewResult Registration() => View();
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registration(RegisterViewModel registerViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = new User { Email = registerViewModel.Email, UserName = registerViewModel.Name, Year = registerViewModel.Year };
+                var result = await userManager.CreateAsync(user, registerViewModel.Password);
+                await userManager.AddToRoleAsync(user, "User");
+                if (result.Succeeded)
+                {
+                    await signInManager.SignInAsync(user, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(registerViewModel);
         }
         public async Task<RedirectResult> Logout(string returnUrl = "/")
         {

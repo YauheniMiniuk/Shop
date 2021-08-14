@@ -15,8 +15,8 @@ namespace Shop.Controllers
     public class RolesController : Controller
     {
         RoleManager<IdentityRole> roleManager;
-        UserManager<IdentityUser> userManager;
-        public RolesController(RoleManager<IdentityRole> roleMgr, UserManager<IdentityUser> userMgr)
+        UserManager<User> userManager;
+        public RolesController(RoleManager<IdentityRole> roleMgr, UserManager<User> userMgr)
         {
             roleManager = roleMgr;
             userManager = userMgr;
@@ -61,7 +61,7 @@ namespace Shop.Controllers
             if (user != null)
             {
                 // получем список ролей пользователя
-                var userRoles = await userManager.GetRolesAsync(user);
+                var userRoles = await userManager.GetRolesAsync((User)user);
                 var allRoles = roleManager.Roles.ToList();
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
@@ -83,7 +83,7 @@ namespace Shop.Controllers
             if (user != null)
             {
                 // получем список ролей пользователя
-                var userRoles = await userManager.GetRolesAsync(user);
+                var userRoles = await userManager.GetRolesAsync((User)user);
                 // получаем все роли
                 var allRoles = roleManager.Roles.ToList();
                 // получаем список ролей, которые были добавлены
@@ -91,9 +91,9 @@ namespace Shop.Controllers
                 // получаем роли, которые были удалены
                 var removedRoles = userRoles.Except(roles);
 
-                await userManager.AddToRolesAsync(user, addedRoles);
+                await userManager.AddToRolesAsync((User)user, addedRoles);
 
-                await userManager.RemoveFromRolesAsync(user, removedRoles);
+                await userManager.RemoveFromRolesAsync((User)user, removedRoles);
 
                 return RedirectToAction("UserList");
             }
