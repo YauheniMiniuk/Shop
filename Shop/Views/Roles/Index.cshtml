@@ -1,0 +1,34 @@
+﻿@model IEnumerable<IdentityRole>
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Roles";
+}
+
+<h2>Role list</h2>
+<div>
+    @if (Model == null)
+    {
+        <span>No roles</span>
+    }
+    else
+    {
+        <table class="table">
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td>@role.Name</td>
+                    <td>
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@role.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+</div>
+<a class="btn btn-success" asp-action="Create">Create role</a>
+<a class="btn btn-primary" asp-action="UserList">User list</a>

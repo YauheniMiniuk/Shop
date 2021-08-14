@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Shop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admin")]
     public class AdminController : Controller
     {
         private IProductRepository repository;

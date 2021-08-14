@@ -43,7 +43,13 @@ namespace Shop.Controllers
                             return Redirect(loginModel.ReturnUrl);
                         }
                         else
-                            return RedirectToAction("Index", "Admin");
+                        {
+                            if (await userManager.IsInRoleAsync(user, "Admin"))
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            return Redirect("/");
+                        }
                     }
                 }
             }
