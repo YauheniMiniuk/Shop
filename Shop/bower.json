@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "fontawesome": "v4.7.0",
-    "bootstrap": "v5.0.2",
+    "bootstrap": "v5.1.0",
     "jquery": "^3.6.0",
     "jquery-validation": "^1.19.3",
     "jquery-validation-unobtrusive": "^3.2.11"

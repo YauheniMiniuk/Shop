@@ -10,7 +10,7 @@ namespace Shop.Controllers
         {
             this.productRepository = productRepository;
         }
-        public IActionResult Product(int id)
+        public ViewResult Product(int id)
         {
             return View(productRepository.GetProductById(id));
         }
