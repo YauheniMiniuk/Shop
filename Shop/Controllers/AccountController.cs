@@ -31,11 +31,11 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                IdentityUser user = await userManager.FindByNameAsync(loginModel.Name);
+                User user = await userManager.FindByNameAsync(loginModel.Name);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
-                    if ((await signInManager.PasswordSignInAsync((User)user, loginModel.Password, false, false)).Succeeded)
+                    if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
                         //return Redirect(loginModel?.ReturnUrl ?? "Admin/Index");
                         if (loginModel.ReturnUrl != null)
@@ -44,7 +44,7 @@ namespace Shop.Controllers
                         }
                         else
                         {
-                            if (await userManager.IsInRoleAsync((User)user, "Admin"))
+                            if (await userManager.IsInRoleAsync(user, "Admin"))
                             {
                                 return RedirectToAction("Index", "Admin");
                             }

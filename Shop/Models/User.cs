@@ -12,7 +12,7 @@ namespace Shop.Models
         public User(string userName)
             : base()
         {
-            this.UserName = userName;
+            UserName = userName;
         }
         public int Year { get; set; }
 

@@ -1,31 +1,33 @@
 ﻿@model CategoriesSubcategoriesViewModel
 
-<a class="btn btn-block btn-secondary" asp-action="Index" asp-controller="Home" asp-route-category="">Home</a>
-@if (ViewBag.SelectedCategory == null)
-{
-    @foreach (string category in Model.Categories)
+<div class="d-grid gap-2">
+    <a class="btn btn-block btn-secondary" asp-action="Index" asp-controller="Home" asp-route-category="">Home</a>
+    @if (ViewBag.SelectedCategory == null)
     {
-        <a class="btn btn-block @(category == ViewBag.SelectedCategory ? "btn-primary" : "btn-secondary")"
-           asp-action="Index" asp-controller="Home" asp-route-category="@category"
-           asp-route-productPage="1">
-            @category
-        </a>
+        @foreach (string category in Model.Categories)
+        {
+            <a class="btn btn-block @(category == ViewBag.SelectedCategory ? "btn-primary" : "btn-secondary")"
+               asp-action="Index" asp-controller="Home" asp-route-category="@category"
+               asp-route-productPage="1">
+                @category
+            </a>
+        }
     }
-}
-else
-{
-    <a class="btn btn-block btn-success"
-       asp-action="Index" asp-controller="Home" asp-route-category="@ViewBag.SelectedCategory" asp-route-subcategory="">
-        @ViewBag.SelectedCategory
-    </a>
+    else
+    {
+        <a class="btn btn-block btn-success"
+           asp-action="Index" asp-controller="Home" asp-route-category="@ViewBag.SelectedCategory" asp-route-subcategory="">
+            @ViewBag.SelectedCategory
+        </a>
 
-    @foreach (string subcategory in Model.Subcategories)
-    {
-        <a class="btn btn-block @(subcategory == ViewBag.SelectedSubcategory ? "btn-primary" : "btn-secondary")"
-           asp-action="Index" asp-controller="Home" asp-route-subcategory="@subcategory"
-           asp-route-productPage="1">
-            @subcategory
-        </a>
+        @foreach (string subcategory in Model.Subcategories)
+        {
+            <a class="btn btn-block @(subcategory == ViewBag.SelectedSubcategory ? "btn-primary" : "btn-secondary")"
+               asp-action="Index" asp-controller="Home" asp-route-subcategory="@subcategory"
+               asp-route-productPage="1">
+                @subcategory
+            </a>
+        }
     }
-}
+</div>
 

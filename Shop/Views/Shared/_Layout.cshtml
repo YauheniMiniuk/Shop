@@ -41,10 +41,10 @@
     </header>
     <div class="container">
         <div class="row m-1 p-1">
-            <div id="categories" class="col-3">
+            <div id="categories" class="col-sm-12 col-md-12 col-lg-3">
                 @await Component.InvokeAsync("NavigationMenu")
             </div>
-            <div class="col-9">
+            <div class="col-sm-12 col-md-12 col-lg-9">
                 @RenderBody()
             </div>
         </div>
