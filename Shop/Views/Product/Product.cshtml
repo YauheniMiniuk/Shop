@@ -4,7 +4,7 @@
     ViewData["Title"] = Model.Name;
 }
 
-<div class="text-center">
+@*<div class="text-center">
     <h1>@Model.Name</h1>
     <h5>@Model.Category</h5>
     <h3>@Model.Price.ToString("c")</h3>
@@ -17,4 +17,53 @@
                     </button>
                 </span>
             </form>
+</div>*@
+@{ 
+    
+} 
+<div class="text-center row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <div id="carousel" class="carousel" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <button type="button" data-bs-target="#carousel" data-bs-slide-to="@i" @(i == 0 ? "class=active aria-current=true" : string.Empty) aria-label="Slide @(i+1)"></button>
+                }
+            </div>
+            <div class="carousel-inner" style="max-height:480px; max-width:480px; background: gray;">
+                @for (int i = 1; i <= 3; i++)
+                {
+                    @*---------------------------------------------------------------*@
+                    <div class="carousel-item @(i == 1 ? "active" : string.Empty)">
+                        <img class="img-fluid mx-auto" src="~/images/products/product-@Model.Id/@(i).jpg" alt="No Content" />
+                    </div>
+                }
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+        <h1>@Model.Name</h1>
+        <h3>@Model.Subcategory (@Model.Category)</h3>
+        <h3>@Model.Description</h3>
+        <h1>@Model.Price.ToString("C2")</h1>
+
+        <form id="@Model.Id" asp-action="AddToCart" asp-controller="Cart" method="post">
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" name="ReturnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+            <span class="card-text p-1">
+                <button type="submit" class="btn btn-success btn-sm pull-right" style="float:right">
+                    Add To Cart
+                </button>
+            </span>
+        </form>
+
+    </div>
 </div>

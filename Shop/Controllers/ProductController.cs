@@ -10,9 +10,16 @@ namespace Shop.Controllers
         {
             this.productRepository = productRepository;
         }
-        public ViewResult Product(int id)
+
+        public ViewResult Product(string productName)
         {
-            return View(productRepository.GetProductById(id));
+            var product = productRepository.GetProductByName(productName);
+            if (product == null)
+            {
+                return View("Error");
+            }
+            return View(product);
         }
+
     }
 }

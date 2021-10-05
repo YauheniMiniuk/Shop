@@ -1,11 +1,15 @@
-@inject SignInManager<User> SignInManager
-@inject UserManager<User> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="btn-group mr-1">
-        <a class="btn btn-secondary" asp-controller="Account" asp-action="Logout">Logout</a>
-    </div>
+<div class="btn-group mr-1">
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-secondary" asp-controller="Admin" asp-action="Index">Admin menu</a>
+    }
+    <a class="btn btn-secondary" asp-controller="Account" asp-action="Logout">Logout</a>
+</div>
 }
 else
 {

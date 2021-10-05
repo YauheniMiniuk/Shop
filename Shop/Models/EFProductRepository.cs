@@ -13,6 +13,7 @@ namespace Shop.Models
         // Return all products
         public IEnumerable<Product> Products => context.Products;
         public Product GetProductById(int id) => context.Products.Where(p => p.Id == id).FirstOrDefault();
+        public Product GetProductByName(string name) => context.Products.Where(p => p.Name == name).FirstOrDefault();
         public void SaveProduct(Product product)
         {
             if (product.Id == 0)

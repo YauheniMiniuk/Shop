@@ -1,24 +1,22 @@
 ﻿@model Product
 
-<div class="card card-outline-primary m-1">
+<div class="card card-outline-primary m-1 ">
     <div class="row">
-        <a class="row align-content-center text-decoration-none" style="color:black;" asp-action="Product" asp-controller="Product" asp-route-id="@Model.Id">
+        <a class="row align-content-center text-decoration-none " style="color:black;"
+           asp-action="Product" asp-controller="Product" asp-route-productName="@Model.Name">
             <div class="col-sm-12 col-md-2 col-lg-2">
-                <img class="card-img"
-                     src="https://catherineasquithgallery.com/uploads/posts/2021-03/1614553939_1-p-kartinka-yabloka-na-belom-fone-1.jpg"
-                     alt="No image" />
+                <img class="card-img" src="~/images/products/product-@Model.Id/1.png" alt="No image" />
             </div>
             <div class="col-sm-12 col-md-8 col-lg-8 align-content-center text-lg-start text-center" >
-                <div class="text-sm-center text-md-start text-lg-start p-1">
+                <div class="text-sm-center text-md-start text-lg-start p-1 align-self-center">
                     <h4>
                         @Model.Name
                     </h4>
-                    <h5>@Model.Category</h5>
                     <span>@Model.Description</span>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-2 col-lg-2">
-                <h3 class="btn active rounded-pill @(Model.isAvailable ? "bg-primary" : "bg-danger")" style="float:right">
+            </div>  
+            <div class="col-sm-12 col-md-2 col-lg-2 text-lg-end text-md-end text-center">
+                <h3 class="btn active rounded-pill @(Model.isAvailable ? "bg-primary" : "bg-danger")">
                     <span>@(Model.isAvailable ? @Model.Price.ToString("C") : "Unavailable")</span>
                 </h3>
                 @* <form id="@Model.Id" asp-action="AddToCart" asp-controller="Cart" method="post">

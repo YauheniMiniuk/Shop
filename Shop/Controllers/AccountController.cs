@@ -11,13 +11,17 @@ namespace Shop.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        private UserManager<User> userManager;
-        private SignInManager<User> signInManager;
-        public AccountController(UserManager<User> userMgr, SignInManager<User> signInMgr)
+        private UserManager<IdentityUser> userManager;
+        private SignInManager<IdentityUser> signInManager;
+        private RoleManager<IdentityRole> roleManager;
+        public AccountController(UserManager<IdentityUser> userMgr, SignInManager<IdentityUser> signInMgr, RoleManager<IdentityRole> roleMgr)
         {
             userManager = userMgr;
             signInManager = signInMgr;
-            //IdentitySeedData.EnsurePopulated(userMgr).Wait();
+            roleManager = roleMgr;
+            // Для создания роли Админа
+            //IdentitySeedData.SeedRoles(roleManager).Wait();
+            //IdentitySeedData.EnsurePopulated(userMgr, roleManager).Wait();
         }
         [AllowAnonymous]
         public ViewResult Login(string returnUrl)
@@ -31,7 +35,7 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await userManager.FindByNameAsync(loginModel.Name);
+                var user = await userManager.FindByNameAsync(loginModel.Name);
                 if (user != null)
                 {
                     await signInManager.SignOutAsync();
@@ -65,9 +69,9 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = registerViewModel.Email, UserName = registerViewModel.Name, Year = registerViewModel.Year };
+                var user = new IdentityUser(registerViewModel.Name);
+                user.Email = registerViewModel.Email;
                 var result = await userManager.CreateAsync(user, registerViewModel.Password);
-                await userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, false);

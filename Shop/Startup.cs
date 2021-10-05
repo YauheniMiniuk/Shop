@@ -1,13 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Models;
-using Microsoft.AspNetCore.Identity;
-using Pomelo.EntityFrameworkCore.MySql;
 
 namespace Shop
 {
@@ -32,12 +31,9 @@ namespace Shop
             services.AddTransient<IOrderRepository, EFOrderRepository>();
             services.AddDbContext<AppIdentityDbContext>(options =>
             options.UseMySql(Configuration.GetConnectionString("ShopIdentity")));
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppIdentityDbContext>()
                 .AddDefaultTokenProviders();
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppIdentityDbContext>()
-            //    .AddDefaultTokenProviders();
 
             services.AddMemoryCache();
             services.AddSession();
@@ -63,6 +59,11 @@ namespace Shop
             app.UseAuthorization();
             app.UseEndpoints(config =>
             {
+                config.MapControllerRoute("catpage", "{category}/{subcategory}/Page{productPage:int}", new { controller = "Home", action = "Index" });
+                config.MapControllerRoute("page", "{category}/Page{productPage:int}", new { Controller = "Home", action = "Index", productPage = 1 });
+                config.MapControllerRoute("pagination", "Products/Page{productPage}", new { Controller = "Home", action = "Index", productPage = 1 });
+                config.MapControllerRoute("category", "{category}", new { Controller = "Home", action = "Index", productPage = 1 });
+                config.MapControllerRoute("userroles", "{controller}/{action}/{userid}", new { Controller = "Roles", Action = "Index" });
                 config.MapDefaultControllerRoute();
             });
         }
